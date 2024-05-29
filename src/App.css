@@ -1,0 +1,21 @@
+.bg {
+    background-image: url("../public/assets/bg.jpg");
+    height: 100vh;
+    width: auto;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+footer {
+    flex-shrink: 0;
+}
