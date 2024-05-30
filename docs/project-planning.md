@@ -2,7 +2,7 @@
 
 ## User Stories and Kanban Board
 
-![Kanban EPIC 1](img/kanban01.png)
+![Kanban EPIC 2](img/kanban02-1.png)
 
 ## Component Hierarchy
 

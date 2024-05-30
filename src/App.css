@@ -7,15 +7,3 @@
     background-position-y: center;
 }
 
-html,
-body {
-    height: 100%;
-}
-
-#root {
-    height: 100%;
-}
-
-footer {
-    flex-shrink: 0;
-}
