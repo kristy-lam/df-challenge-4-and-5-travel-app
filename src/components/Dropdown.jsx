@@ -1,6 +1,6 @@
 const Dropdown = () => {
   return (
-      <li className="nav-item dropdown">
+      <li className="d-flex p-2 nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           My Saved Locations
         </a>
