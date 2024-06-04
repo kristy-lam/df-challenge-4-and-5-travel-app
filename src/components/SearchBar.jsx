@@ -1,13 +1,23 @@
+import { useNavigate } from "react-router-dom";
+
 const SearchBar = ({
   citySearchInput,
   setCitySearchInput,
   locations,
   parent,
 }) => {
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     setCitySearchInput(event.target.value);
   };
 
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    navigate("/location");
+  };
+
+  // Styling for search bar when it appears in the Nav Bar outside Home page
   const brInNavBar = parent === "NavBar" ? "" : <br />;
   const formClassNameInNavBar = parent === "NavBar" ? "d-flex ms-auto p-2" : "";
   const buttonClassNameInNavBar = parent === "NavBar" ? "ms-1" : "";
@@ -28,7 +38,7 @@ const SearchBar = ({
     );
 
   return (
-    <form className={formClassNameInNavBar}>
+    <form className={formClassNameInNavBar} onSubmit={handleOnSubmit}>
       <div className="form-group">
         <input
           className="form-control"
@@ -54,10 +64,6 @@ const SearchBar = ({
           type="submit"
           className={`btn my-main-btn ${buttonClassNameInNavBar}`}
           style={{ backgroundColor: "#2EC4B6", color: "#FFFFFF" }}
-          onClick={(event) => {
-            event.preventDefault();
-            console.log("Submitted value:", citySearchInput);
-          }}
         >
           {buttonHTMLInNavBar}
         </button>

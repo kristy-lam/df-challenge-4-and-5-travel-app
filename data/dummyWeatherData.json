@@ -1,5 +1,5 @@
 {
-  "jsonWeatherData": {
+  "dummyWeather": {
     "dublin": {
       "cod": "200",
       "message": 0,

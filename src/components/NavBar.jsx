@@ -50,15 +50,15 @@ const NavBar = ({
             </li>
             {isHomePage && <Dropdown />}
           </ul>
-          {/* {!isHomePage && ( */}
-          <SearchBar
-            citySearchInput={citySearchInput}
-            setCitySearchInput={setCitySearchInput}
-            locations={locations}
-            isHomePage={isHomePage}
-            parent="NavBar"
-          />
-          {/* )} */}
+          {!isHomePage && (
+            <SearchBar
+              citySearchInput={citySearchInput}
+              setCitySearchInput={setCitySearchInput}
+              locations={locations}
+              isHomePage={isHomePage}
+              parent="NavBar"
+            />
+          )}
         </div>
       </div>
     </nav>

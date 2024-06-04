@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import {
-  validateNewEmail,
-  validateNewPassword,
-  confirmNewPassword,
-  checkUserEmail,
-  checkUserPassword,
+  validateEmail,
+  validatePassword,
+  confirmPassword,
 } from "../utils/loginValidator.js";
 
 const Login = () => {
@@ -15,6 +13,20 @@ const Login = () => {
   const [isUserEmailValid, setIsUserEmailValid] = useState(true);
   const [isUserPasswordValid, setIsUserPasswordValid] = useState(true);
   const [isLoginFormValid, setIsLoginFormValid] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleUserEmailChange = (event) => {
+    const userEmail = event.target.value;
+    setUserEmail(userEmail);
+    setIsUserEmailTouched(true);
+    setIsUserEmailValid(validateEmail(userEmail));
+  };
+
+  const handleUserPasswordChange = (event) => {
+    const userPassword = event.target.value;
+    setUserPassword(userPassword);
+    setIsUserPasswordValid(validatePassword(userPassword));
+  };
 
   useEffect(() => {
     setIsLoginFormValid(
@@ -22,27 +34,19 @@ const Login = () => {
     );
   }, [isUserEmailTouched, isUserEmailValid, isUserPasswordValid]);
 
-  const handleUserEmailChange = (event) => {
-    const userEmail = event.target.value;
-    setUserEmail(userEmail);
-    setIsUserEmailTouched(true);
-    setIsUserEmailValid(checkUserEmail(userEmail));
-  };
-
-  const handleUserPasswordChange = (event) => {
-    const userPassword = event.target.value;
-    setUserPassword(userPassword);
-    setIsUserPasswordValid(checkUserPassword(userPassword));
-  };
+  useEffect(() => {
+    setIsLoggedIn(isLoginFormValid);
+  }, [isLoginFormValid]);
 
   // States, effect and event handlers for registration details
   const [regEmail, setRegEmail] = useState("");
   const [isRegEmailTouched, setIsRegEmailTouched] = useState(false);
   const [regPassword, setRegPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [regConfirmPassword, setRegConfirmPassword] = useState("");
   const [isRegEmailValid, setIsRegEmailValid] = useState(true);
   const [isRegPasswordValid, setIsRegPasswordValid] = useState(true);
-  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
+  const [isRegConfirmPasswordValid, setIsRegConfirmPasswordValid] =
+    useState(true);
   const [isRegFormValid, setIsRegFormValid] = useState(false);
 
   useEffect(() => {
@@ -50,32 +54,34 @@ const Login = () => {
       isRegEmailTouched &&
         isRegEmailValid &&
         isRegPasswordValid &&
-        isConfirmPasswordValid
+        isRegConfirmPasswordValid
     );
   }, [
     isRegEmailTouched,
     isRegEmailValid,
     isRegPasswordValid,
-    isConfirmPasswordValid,
+    isRegConfirmPasswordValid,
   ]);
 
   const handleRegEmailChange = (event) => {
     const regEmail = event.target.value;
     setRegEmail(regEmail);
     setIsRegEmailTouched(true);
-    setIsRegEmailValid(validateNewEmail(regEmail));
+    setIsRegEmailValid(validateEmail(regEmail));
   };
 
   const handleRegPasswordChange = (event) => {
     const regPassword = event.target.value;
     setRegPassword(regPassword);
-    setIsRegPasswordValid(validateNewPassword(regPassword));
+    setIsRegPasswordValid(validatePassword(regPassword));
   };
 
-  const handleConfirmPasswordChange = (event) => {
-    const confirmPassword = event.target.value;
-    setConfirmPassword(confirmPassword);
-    setIsConfirmPasswordValid(confirmNewPassword(regPassword, confirmPassword));
+  const handleRegConfirmPasswordChange = (event) => {
+    const regConfirmPassword = event.target.value;
+    setRegConfirmPassword(regConfirmPassword);
+    setIsRegConfirmPasswordValid(
+      confirmPassword(regPassword, regConfirmPassword)
+    );
   };
 
   return (
@@ -135,7 +141,7 @@ const Login = () => {
                     />
                     {!isUserEmailValid && (
                       <div className="invalid-feedback">
-                        Invalid user email address.
+                        The email address you inputted is invalid.
                       </div>
                     )}
                   </div>
@@ -160,14 +166,17 @@ const Login = () => {
                       onChange={handleUserPasswordChange}
                       required
                     />
-                    {!isUserEmailValid && (
+                    {!isUserPasswordValid && (
                       <div className="invalid-feedback">
-                        Incorrect password.
+                        The password must be at least 8 characters long and
+                        contain at least one uppercase letter, one number, and
+                        one special character.
                       </div>
                     )}
                   </div>
                 </div>
                 <button
+                  name="login"
                   type="button"
                   className="btn"
                   style={{ backgroundColor: "#2EC4B6", color: "#FFFFFF" }}
@@ -185,7 +194,7 @@ const Login = () => {
                 Register for an account to save your favourite locations!
               </h6>
               <br />
-              {/* Register Form */}
+              {/* Registration Form */}
               <form>
                 <div className="row mb-3">
                   <label
@@ -254,16 +263,16 @@ const Login = () => {
                     <input
                       type="password"
                       className={`form-control ${
-                        isConfirmPasswordValid ? "" : "is-invalid"
+                        isRegConfirmPasswordValid ? "" : "is-invalid"
                       }`}
                       id="confirmPassword"
                       placeholder="Confirm the password..."
                       autoComplete="new-password"
-                      value={confirmPassword}
-                      onChange={handleConfirmPasswordChange}
+                      value={regConfirmPassword}
+                      onChange={handleRegConfirmPasswordChange}
                       required
                     />
-                    {!isConfirmPasswordValid && (
+                    {!isRegConfirmPasswordValid && (
                       <div className="invalid-feedback">
                         Your password inputs do not match.
                       </div>
@@ -271,6 +280,7 @@ const Login = () => {
                   </div>
                 </div>
                 <button
+                  name="register"
                   type="button"
                   className="btn"
                   style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}

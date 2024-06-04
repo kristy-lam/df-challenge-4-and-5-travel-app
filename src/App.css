@@ -1,9 +1,20 @@
 .bg {
-    background-image: url("../assets/bg.jpg");
-    height: 100vh;
-    width: auto;
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: center;
+  height: 100vh;
+  width: auto;
+  background-color: #cbf3f0;
 }
 
+@media (min-width: 768px) {
+  .bg {
+    background-image: url("../assets/bg.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+.bg-all {
+  height: 100vh;
+  background-image: url("../assets/bg.jpg");
+  background-position: center;
+  background-size: cover;
+}

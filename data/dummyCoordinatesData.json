@@ -1,0 +1,10 @@
+{
+  "dummyCoord": {
+    "name": "Dublin",
+    "local_names": { "gd": "Baile Àtha Cliath", "en": "Dublin" },
+    "lat": 57.7386289,
+    "lon": -4.3255225,
+    "country": "GB",
+    "state": "Scotland"
+  }
+}
