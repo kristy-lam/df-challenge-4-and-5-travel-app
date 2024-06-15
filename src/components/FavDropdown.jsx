@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import getAllFavsService from "../services/getAllFavs.service.js";
+// import getAllFavsService from "../services/getAllFavs.service.js";
 
 const FavDropdown = () => {
-  const [favs, setFavs] = useState([]);
-  const navigate = useNavigate;
+  // const [favs, setFavs] = useState([]);
+  // const navigate = useNavigate;
 
-  const fetchFavs = async () => {
-    try {
-      const favData = await getAllFavsService();
-      setFavs(favData);
-    } catch (e) {
-      return e.message;
-    }
-  };
+  // const fetchFavs = async () => {
+  //   try {
+  //     const favData = await getAllFavsService();
+  //     setFavs(favData);
+  //   } catch (e) {
+  //     return e.message;
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchFavs();
-  }, []);
+  // useEffect(() => {
+  //   fetchFavs();
+  // }, []);
 
   // const handleOnClick = (city) => {
   //   navigate(`/location/${encodeURIComponent(city.trim())}`);
@@ -37,7 +37,7 @@ const FavDropdown = () => {
       ></a>
 
       <ul className="dropdown-menu">
-        {favs.map((fav, index) => (
+        {/* {favs.map((fav, index) => (
           <li key={index}>
             <button
               className="dropdown-item"
@@ -48,7 +48,7 @@ const FavDropdown = () => {
               {fav.city}
             </button>
           </li>
-        ))}
+        ))} */}
       </ul>
     </li>
   );

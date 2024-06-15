@@ -1,29 +1,21 @@
 import FavDropdown from "./FavDropdown";
-import getAllFavsService from "../services/getAllFavs.service.js";
-import Login from "./Login";
+import LoginModal from "./LoginModal";
 import SearchBar from "./SearchBar";
-import Register from "./Register";
+import RegisterModal from "./RegisterModal";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useUser } from "../context/context.js";
 
-const NavBar = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  isRegistered,
-  setIsRegistered,
-}) => {
+const NavBar = () => {
   const { pathname } = useLocation();
+  const { isLoggedIn, setLoggedOut } = useUser();
   const isHomepage = useMemo(() => pathname === "/", [pathname]);
 
-  const [favAvailable, setFavAvailable] = useState(false);
-
   useEffect(() => {
-    const fetchFavs = async () => {
-      const favs = await getAllFavsService();
-      if (favs.length > 0) setFavAvailable(true);
-    };
-    fetchFavs();
-  }, []);
+    if (!isLoggedIn) {
+      return;
+    }
+  }, [isLoggedIn]);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -53,28 +45,22 @@ const NavBar = ({
                 Home
               </a>
             </li>
-            <li className="d-flex p-2 nav-item">
+            {!isLoggedIn ? (
               <>
-                <button
-                  type="button"
-                  className="btn"
-                  style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
-                  data-bs-toggle="modal"
-                  data-bs-target="#registerModal"
-                >
-                  Register
-                </button>
-                <Register
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  isRegistered={isRegistered}
-                  setIsRegistered={setIsRegistered}
-                />
-              </>
-            </li>
-            <li className="d-flex p-2 nav-item">
-              {!isLoggedIn ? (
-                <>
+                <li className="d-flex p-2 nav-item">
+                  <>
+                    <button
+                      type="button"
+                      className="btn"
+                      style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
+                      data-bs-toggle="modal"
+                      data-bs-target="#registerModal"
+                    >
+                      Register
+                    </button>
+                  </>
+                </li>
+                <li className="d-flex p-2 nav-item">
                   <button
                     type="button"
                     className="btn"
@@ -84,25 +70,26 @@ const NavBar = ({
                   >
                     Login
                   </button>
-                  <Login
-                    isLoggedIn={isLoggedIn}
-                    setIsLoggedIn={setIsLoggedIn}
-                  />
-                </>
-              ) : (
-                <button
-                  type="button"
-                  className="btn"
-                  style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
-                  onClick={() => setIsLoggedIn(false)}
-                >
-                  Logout
-                </button>
-              )}
-            </li>
-            {/* {isLoggedIn && favouriteAvailable && <FavDropdown />} */}
-            {favAvailable && <FavDropdown />}
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="d-flex p-2 nav-item">
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
+                    onClick={() => setLoggedOut()}
+                  >
+                    Logout
+                  </button>
+                </li>
+                {/* <FavDropdown /> */}
+              </>
+            )}
           </ul>
+          <RegisterModal />
+          <LoginModal />
           {!isHomepage && <SearchBar parent="NavBar" />}
         </div>
       </div>

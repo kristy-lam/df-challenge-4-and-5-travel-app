@@ -1,14 +1,9 @@
 import axios from "axios";
 
 const loginUser = async (email, password) => {
+  // import.meta.env.VITE_APP_LOGINURL;
   const user = { email, password };
-  try {
-    // import.meta.env.VITE_APP_LOGINURL;
-    const res = await axios.post("http://localhost:4000/login", user);
-    return res.data;
-  } catch (e) {
-    return e.message;
-  }
+  return await axios.post("http://localhost:4000/login", user);
 };
 
 export default loginUser;
