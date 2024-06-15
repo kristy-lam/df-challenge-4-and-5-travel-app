@@ -1,11 +1,10 @@
 import axios from "axios";
 
-export const deleteFavService = async (user, city) => {
+export const deleteFavService = async (city, user) => {
   try {
-    // import.meta.env.VITE_APP_FAVURL;
-    const res = await axios.patch("http://localhost:4000/deletefav", {
-      ...user,
+    const res = await axios.patch(import.meta.env.VITE_APP_DELETEFAVURL, {
       city,
+      ...user,
     });
     return res.data;
   } catch (e) {

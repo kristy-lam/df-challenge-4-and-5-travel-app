@@ -1,27 +1,32 @@
-import { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout.jsx";
+import { useEffect } from "react";
+import { useUser } from "../context/context.js";
+import { useNavigate } from "react-router-dom";
 
-import getAllFavsService from "../services/getAllFavs.service.js";
+import deleteFavService from "../services/deleteFav.service.js";
 
 const FavSec = () => {
-  const [favs, setFavs] = useState([]);
+  const { user, isLoggedIn, favs, updateFavs } = useUser();
+  const navigate = useNavigate();
 
-  const fetchFavs = async () => {
-    try {
-      const favData = await getAllFavsService();
-      setFavs(favData);
-    } catch (e) {
-      return e.message;
-    }
+  const handleOnClick = (city) => {
+    navigate(`/location/${encodeURIComponent(city.trim())}`);
   };
 
   useEffect(() => {
-    fetchFavs();
-  }, []);
+    if (!isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
+
+  const deleteFav = async (city) => {
+    await deleteFavService(city, user);
+    updateFavs();
+  };
 
   return (
     <MainLayout>
-      <div className="container text-center">
+      <div className="container text-center opagueDisplay">
         <h2>Telling you about...</h2>
         <h1>Your Favourite Locations</h1>
         <p>
@@ -46,16 +51,25 @@ const FavSec = () => {
               favs.map((fav, index) => (
                 <div className="col-12 col-md-6 col-lg-4 mb-3" key={index}>
                   <div>
-                    <button className="btn btn-link">
+                    <button
+                      className="btn btn-link"
+                      onClick={() => {
+                        deleteFav(fav.city);
+                      }}
+                    >
                       <img
                         src="/assets/bookmark-icon.svg"
                         alt="bookmark"
                         style={{ width: "15px", height: "18px" }}
                       />
                     </button>
-                    <p className="mb-0">
+
+                    <button
+                      className="mb-0 btn"
+                      onClick={() => handleOnClick(fav.city)}
+                    >
                       Favourite {index + 1}: {fav.city}
-                    </p>
+                    </button>
                   </div>
                 </div>
               ))

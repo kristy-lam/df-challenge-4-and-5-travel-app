@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useUser } from "../context/context.js";
 
 import BookmarkButton from "../components/BookmarkButton.jsx";
 import MainLayout from "../components/MainLayout.jsx";
@@ -10,8 +11,9 @@ import formatWeatherData from "../utils/formatWeatherData.js";
 import getCoordinatesService from "../services/getCoordinates.service.js";
 import getWeatherService from "../services/getWeather.service.js";
 
-const TellMeAboutSec = ({ isLoggedIn }) => {
+const TellMeAboutSec = () => {
   const { keyword } = useParams();
+  const { isLoggedIn } = useUser();
   const [city, setCity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [fiveDayForecast, setFiveDayForecast] = useState([]);
@@ -46,18 +48,17 @@ const TellMeAboutSec = ({ isLoggedIn }) => {
 
   return (
     <MainLayout>
-      <div className="container text-center todayDisplay">
+      <div className="container text-center opagueDisplay">
         <div className="row">
           <div className="col">
             <h3>{isLoading ? "Loading..." : "Tell me about..."}</h3>
             <h1>{city}</h1>
-            {/* {isLoggedIn && <BookmarkButton city={city} />} */}
-            <BookmarkButton city={city} />
+            {isLoggedIn && <BookmarkButton city={city} />}
           </div>
         </div>
         {!!fiveDayForecast.length && (
           <>
-            <div className="todayDisplay">
+            <div className="opagueDisplay">
               <div className="row">
                 <div className="col">
                   <p>Today&apos;s weather:</p>

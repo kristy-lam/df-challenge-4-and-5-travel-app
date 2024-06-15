@@ -1,31 +1,24 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import getAllFavsService from "../services/getAllFavs.service.js";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/context.js";
 
 const FavDropdown = () => {
-  // const [favs, setFavs] = useState([]);
-  // const navigate = useNavigate;
+  const navigate = useNavigate();
+  const { favs } = useUser();
 
-  // const fetchFavs = async () => {
-  //   try {
-  //     const favData = await getAllFavsService();
-  //     setFavs(favData);
-  //   } catch (e) {
-  //     return e.message;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchFavs();
-  // }, []);
-
-  // const handleOnClick = (city) => {
-  //   navigate(`/location/${encodeURIComponent(city.trim())}`);
-  // };
+  const handleOnClick = (city) => {
+    navigate(`/location/${encodeURIComponent(city.trim())}`);
+  };
 
   return (
     <li className="d-flex p-2 nav-item dropdown">
-      <a className="nav-link" aria-current="page" href="/fav">
+      <a
+        className="nav-link"
+        aria-current="page"
+        style={{
+          cursor: "pointer",
+        }}
+        onClick={() => navigate("/fav")}
+      >
         My Saved Locations
       </a>
       <a
@@ -37,18 +30,16 @@ const FavDropdown = () => {
       ></a>
 
       <ul className="dropdown-menu">
-        {/* {favs.map((fav, index) => (
+        {favs.map((fav, index) => (
           <li key={index}>
             <button
               className="dropdown-item"
-              // onClick={() => {
-              //   handleOnClick(fav.city);
-              // }}
+              onClick={() => handleOnClick(fav.city)}
             >
               {fav.city}
             </button>
           </li>
-        ))} */}
+        ))}
       </ul>
     </li>
   );

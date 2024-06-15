@@ -1,39 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useUser } from "../context/context.js";
 import addFavService from "../services/addFav.service.js";
 import deleteFavService from "../services/deleteFav.service.js";
-import getAllFavsService from "../services/getAllFavs.service.js";
 
 const BookmarkButton = ({ city }) => {
+  const { favs, user, updateFavs } = useUser();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
-  const fetchAllFavs = async () => {
-    try {
-      return await getAllFavsService();
-    } catch (e) {
-      return e.message;
-    }
-  };
-
   const checkIfBookmarked = () => {
-    const allFavs = fetchAllFavs();
-    if (Array.isArray(allFavs)) {
-      return allFavs.includes(city);
-    }
+    return favs.find((row) => row.city === city);
   };
 
-  const handleBookmarkClick = () => {
-    if (checkIfBookmarked()) {
-      console.log(checkIfBookmarked());
-      console.log(city);
-      deleteFavService(city);
+  const handleBookmarkClick = async () => {
+    if (!user) {
+      return;
+    }
+    if (isBookmarked) {
+      await deleteFavService(city, user);
       setIsBookmarked(false);
     } else {
-      console.log(checkIfBookmarked());
-      console.log(city);
-      addFavService(city);
+      await addFavService(city, user);
       setIsBookmarked(true);
     }
+    updateFavs();
   };
+
+  useEffect(() => {
+    setIsBookmarked(checkIfBookmarked());
+  }, [city, favs]);
 
   return (
     <button onClick={handleBookmarkClick} className="bookmark-button">

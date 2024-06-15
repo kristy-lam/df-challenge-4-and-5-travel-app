@@ -82,7 +82,7 @@ const RegisterForm = ({ onRegistered }) => {
         <div className="col-sm-8">
           <input
             type="email"
-            className={`form-control ${isRegEmailValid ? "" : "is-invalid"}`}
+            className={`${isRegEmailValid ? "" : "is-invalid"} form-control`}
             id="registerEmail"
             placeholder="example@example.com"
             autoComplete="username"

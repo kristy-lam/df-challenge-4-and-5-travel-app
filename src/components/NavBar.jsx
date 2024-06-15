@@ -8,13 +8,18 @@ import { useUser } from "../context/context.js";
 
 const NavBar = () => {
   const { pathname } = useLocation();
-  const { isLoggedIn, setLoggedOut } = useUser();
+  const { favs, isLoggedIn, setLoggedOut, updateFavs } = useUser();
   const isHomepage = useMemo(() => pathname === "/", [pathname]);
+  const favAvailable = useMemo(
+    () => (isLoggedIn ? favs.length > 0 : false),
+    [favs, isLoggedIn]
+  );
 
   useEffect(() => {
     if (!isLoggedIn) {
       return;
     }
+    updateFavs();
   }, [isLoggedIn]);
 
   return (
@@ -84,7 +89,7 @@ const NavBar = () => {
                     Logout
                   </button>
                 </li>
-                {/* <FavDropdown /> */}
+                {favAvailable && <FavDropdown />}
               </>
             )}
           </ul>

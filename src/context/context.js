@@ -5,6 +5,8 @@ export const UserContext = createContext({
   user: null,
   setLoggedIn: () => {},
   setLoggedOut: () => {},
+  favs: [],
+  updateFavs: () => {},
 });
 
 export const useUser = () => useContext(UserContext);

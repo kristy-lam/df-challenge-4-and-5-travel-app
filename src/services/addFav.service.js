@@ -1,11 +1,10 @@
 import axios from "axios";
 
-export const addFavService = async (user, city) => {
+export const addFavService = async (city, user) => {
   try {
-    // import.meta.env.VITE_APP_FAVURL;
-    const res = await axios.patch("http://localhost:4000/addfav", {
-      ...user,
+    const res = await axios.patch(import.meta.env.VITE_APP_ADDFAVURL, {
       city,
+      ...user,
     });
     return res.data;
   } catch (e) {
