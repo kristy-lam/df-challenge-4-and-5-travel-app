@@ -1,20 +1,32 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import getLocationsService from "../services/getLocations.service.js";
+import formatLocationsData from "../utils/formatLocationsData.js";
 
-const SearchBar = ({
-  citySearchInput,
-  setCitySearchInput,
-  locations,
-  parent,
-}) => {
+const SearchBar = ({ parent }) => {
   const navigate = useNavigate();
+  const [value, setValue] = useState("");
+  const [locations, setLocations] = useState([]);
 
-  const handleInputChange = (event) => {
-    setCitySearchInput(event.target.value);
+  useEffect(() => {
+    if (value.trim()) {
+      void getLocations(value.trim());
+    }
+  }, [value]);
+
+  // Function to get locations from Geocoding API
+  const getLocations = async (keyword) => {
+    const locations = await getLocationsService(keyword);
+    // Parse received data only when data is an array
+    if (Array.isArray(locations)) {
+      const formattedLocations = formatLocationsData(locations);
+      setLocations(formattedLocations);
+    }
   };
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    navigate("/location");
+    navigate(`/location/${encodeURIComponent(value.trim())}`);
   };
 
   // Styling for search bar when it appears in the Nav Bar outside Home page
@@ -46,8 +58,8 @@ const SearchBar = ({
           type="search"
           aria-label="Search"
           placeholder="Location name..."
-          value={citySearchInput}
-          onChange={handleInputChange}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
         />
         <datalist id="locationsList">
           {locations.map((location, index) => (

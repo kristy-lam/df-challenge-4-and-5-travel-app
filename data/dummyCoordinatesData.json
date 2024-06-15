@@ -1,10 +1,10 @@
-{
-  "dummyCoord": {
+[
+  {
     "name": "Dublin",
-    "local_names": { "gd": "Baile Àtha Cliath", "en": "Dublin" },
-    "lat": 57.7386289,
-    "lon": -4.3255225,
-    "country": "GB",
-    "state": "Scotland"
+    "local_names": { "en": "Dublin" },
+    "lat": 37.7021521,
+    "lon": -121.9357918,
+    "country": "US",
+    "state": "California"
   }
-}
+]

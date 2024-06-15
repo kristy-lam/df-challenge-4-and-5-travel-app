@@ -1,13 +1,30 @@
-import Dropdown from "./Dropdown";
+import FavDropdown from "./FavDropdown";
+import getAllFavsService from "../services/getAllFavs.service.js";
 import Login from "./Login";
 import SearchBar from "./SearchBar";
+import Register from "./Register";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState, useMemo } from "react";
 
 const NavBar = ({
-  citySearchInput,
-  setCitySearchInput,
-  locations,
-  isHomePage,
+  isLoggedIn,
+  setIsLoggedIn,
+  isRegistered,
+  setIsRegistered,
 }) => {
+  const { pathname } = useLocation();
+  const isHomepage = useMemo(() => pathname === "/", [pathname]);
+
+  const [favAvailable, setFavAvailable] = useState(false);
+
+  useEffect(() => {
+    const fetchFavs = async () => {
+      const favs = await getAllFavsService();
+      if (favs.length > 0) setFavAvailable(true);
+    };
+    fetchFavs();
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid" style={{ backgroundColor: "#ffffff" }}>
@@ -37,28 +54,56 @@ const NavBar = ({
               </a>
             </li>
             <li className="d-flex p-2 nav-item">
-              <button
-                type="button"
-                className="btn"
-                style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-              >
-                Login
-              </button>
-              <Login />
+              <>
+                <button
+                  type="button"
+                  className="btn"
+                  style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#registerModal"
+                >
+                  Register
+                </button>
+                <Register
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  isRegistered={isRegistered}
+                  setIsRegistered={setIsRegistered}
+                />
+              </>
             </li>
-            {isHomePage && <Dropdown />}
+            <li className="d-flex p-2 nav-item">
+              {!isLoggedIn ? (
+                <>
+                  <button
+                    type="button"
+                    className="btn"
+                    style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                  >
+                    Login
+                  </button>
+                  <Login
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                  />
+                </>
+              ) : (
+                <button
+                  type="button"
+                  className="btn"
+                  style={{ backgroundColor: "#FF9F1C", color: "#FFFFFF" }}
+                  onClick={() => setIsLoggedIn(false)}
+                >
+                  Logout
+                </button>
+              )}
+            </li>
+            {/* {isLoggedIn && favouriteAvailable && <FavDropdown />} */}
+            {favAvailable && <FavDropdown />}
           </ul>
-          {!isHomePage && (
-            <SearchBar
-              citySearchInput={citySearchInput}
-              setCitySearchInput={setCitySearchInput}
-              locations={locations}
-              isHomePage={isHomePage}
-              parent="NavBar"
-            />
-          )}
+          {!isHomepage && <SearchBar parent="NavBar" />}
         </div>
       </div>
     </nav>

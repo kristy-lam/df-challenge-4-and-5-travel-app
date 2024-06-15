@@ -1,0 +1,40 @@
+{
+  "dummyFavs": [
+    {
+      "_id": { "$oid": "1" },
+      "city": "London, England, GB"
+    },
+    {
+      "_id": { "$oid": "2" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "3" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "4" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "5" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "6" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "7" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "8" },
+      "city": "Dublin, California, US"
+    },
+    {
+      "_id": { "$oid": "9" },
+      "city": "Dublin, California, US"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Login from "../src/components/Login";
+import Login from "../../src/components/Login";
 
 describe("Login Component Tests", () => {
   it("applies 'is-invalid' class to input fields with invalid values", () => {
