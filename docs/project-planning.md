@@ -6,5 +6,14 @@
 
 ## Component Hierarchy
 
-### Home Page:
+### Home Page ("/"):
 
+![Hierarchy Diagram - Home](img/hierarchy-home.png)
+
+### Tell Me About Page ("/location/:keyword"):
+
+![Hierarchy Diagram - Tell Me About](img/hierarchy-location.png)
+
+### Favourites Page ("/fav"):
+
+![Hierarchy Diagram - Favourites](img/hierarchy-favourites.png)

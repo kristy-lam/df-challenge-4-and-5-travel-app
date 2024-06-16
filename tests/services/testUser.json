@@ -1,0 +1,28 @@
+{
+  "_id": {
+    "$oid": "666c61645054b741e1eb6378"
+  },
+  "email": "test1@example.com",
+  "password": "Password1!",
+  "favs": [
+    {
+      "city": "testCity1",
+      "_id": {
+        "$oid": "666c61645054b741e1eb6379"
+      }
+    },
+    {
+      "city": "testCity2",
+      "_id": {
+        "$oid": "666c61645054b741e1eb637a"
+      }
+    },
+    {
+      "city": "testCity3",
+      "_id": {
+        "$oid": "666c61645054b741e1eb637b"
+      }
+    }
+  ],
+  "__v": 0
+}
