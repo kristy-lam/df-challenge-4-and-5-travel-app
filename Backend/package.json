@@ -1,0 +1,32 @@
+{
+  "name": "07_challenge-5-travel-info-back-end-kristy-lam",
+  "version": "1.0.0",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/f3W49DYc)\r # Challenge 5 - Travel Info Backend Challenge",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "prod": "cross-env NODE_ENV=prod nodemon src/index.js",
+    "start": "cross-env NODE_ENV=dev nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test mocha --timeout 10000 --exit --recursive",
+    "coverage": "cross-env NODE_ENV=test c8 -r html npm test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "mongodb": "^6.7.0",
+    "mongoose": "^8.4.1"
+  },
+  "devDependencies": {
+    "c8": "^9.1.0",
+    "chai": "^5.1.1",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.4.0",
+    "sinon": "^18.0.0",
+    "supertest": "^7.0.0"
+  }
+}

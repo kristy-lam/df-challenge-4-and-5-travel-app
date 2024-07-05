@@ -1,0 +1,10 @@
+[
+  {
+    "_id": { "$oid": "6663275330fe3ead0cf11925" },
+    "city": "London, England, GB"
+  },
+  {
+    "_id": { "$oid": "66632e92f239f74d15b69030" },
+    "city": "Dublin, California, US"
+  }
+]
